@@ -146,4 +146,20 @@ class PaginatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $paginator->getPageUrl(123));
     }
 
+    public function testCreateView()
+    {
+        $paginator = new Paginator(47, 3, 6, 'index?page='.Paginator::NUM_PLACEHOLDER);
+        $paginator->setPreviousText('Previous page test');
+        $paginator->setNextText('Next page test');
+        $view = $paginator->createView();
+        $this->assertInstanceOf('JasonGrimes\PaginatorView', $view);
+        $this->assertEquals(16, $view->numberOfPages);
+        $this->assertEquals(6, $view->currentPage);
+        $this->assertCount(12, $view->pages);
+        $this->assertEquals('index?page=5', $view->previousUrl);
+        $this->assertEquals('Previous page test', $view->previousText);
+        $this->assertEquals('index?page=7', $view->nextUrl);
+        $this->assertNotEmpty('Next page test', $view->nextText);
+    }
+
 }

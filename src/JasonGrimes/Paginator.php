@@ -275,6 +275,20 @@ class Paginator
         );
     }
 
+
+    public function createView()
+    {
+        $view = new PaginatorView();
+        $view->numberOfPages = $this->getNumPages();
+        $view->currentPage = $this->getCurrentPage();
+        $view->previousUrl = $this->getPrevUrl();
+        $view->nextUrl = $this->getNextUrl();
+        $view->pages = $this->getPages();
+        $view->previousText = $this->previousText;
+        $view->nextText = $this->nextText;
+        return $view;
+    }
+
     /**
      * Render an HTML pagination control.
      *
